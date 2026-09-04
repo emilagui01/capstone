@@ -26,5 +26,5 @@ Travlr Full Stack Application (MongoDB/Mongoose)
 
 Visit my GitHub Pages portfolio here:
 
-https://emilagui01.github.io
+https://emilagui01.github.io/capstone/
 
