@@ -297,6 +297,7 @@
   <p>Generated dependency folders such as <strong>node_modules</strong> were removed to reduce file size, so
     dependencies must be reinstalled before running the project.</p>
   <ol>
+    <li>Copy <code>.env.example</code> to a new file named <code>.env</code> in the main Travlr project folder and set your own secret for signing login tokens:<pre><code>JWT_SECRET=replace-with-your-own-secret</code></pre></li>
     <li>Install backend dependencies from the main Travlr project folder:<pre><code>npm install</code></pre></li>
     <li>Install Angular dependencies:<pre><code>cd app_admin
 npm install</code></pre></li>
