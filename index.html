@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Capstone ePortfolio | Emil Aguirre Herrera</title>
+  <meta name="description" content="CS-499 Computer Science Capstone ePortfolio by Emil Aguirre Herrera, Southern New Hampshire University.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Source+Sans+3:wght@400;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0a2463;
+      --navy-deep: #061a4a;
+      --blue: #333395;
+      --blue-soft: #e8ecfa;
+      --gold: #f0d52d;
+      --gold-deep: #c9a800;
+      --gold-soft: #fff8d6;
+      --ink: #1d2433;
+      --ink-soft: #4a5468;
+      --line: #dde2ec;
+      --page: #f3f5f9;
+      --card: #ffffff;
+      --ok: #1e7a3c;
+      --sans: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+      --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+      --mono: Consolas, "Cascadia Mono", Menlo, monospace;
+      --easy: "Atkinson Hyperlegible", "Segoe UI", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    body { margin: 0; background: var(--page); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.65; }
+    a { color: var(--blue); }
+    a:hover { color: var(--navy); }
+    img, iframe { max-width: 100%; }
+
+    /* ---------- top bar ---------- */
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 10px 24px; background: var(--navy-deep); border-bottom: 3px solid var(--gold);
+      font-size: 15px;
+    }
+    .topbar nav { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 18px; }
+    .topbar a { color: #dfe6f7; text-decoration: none; font-weight: 600; }
+    .topbar a:hover { color: var(--gold); }
+    .topbar .here { color: var(--gold); }
+    .view-toggle {
+      font-family: var(--easy); font-size: 14px; font-weight: 700; line-height: 1.2;
+      padding: 8px 14px; border-radius: 6px; cursor: pointer; white-space: nowrap;
+      border: 2px solid var(--gold); background: var(--gold); color: #1a1600;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .view-toggle:hover { background: #f6e270; }
+    .view-toggle:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+    .view-toggle .aa { font-size: 15px; background: #1a1600; color: var(--gold); border-radius: 4px; padding: 1px 5px; }
+    .view-toggle .to-std { display: none; }
+    body.easy .view-toggle .to-easy { display: none; }
+    body.easy .view-toggle .to-std { display: inline; }
+
+    /* ---------- hero ---------- */
+    .hero {
+      background:
+        radial-gradient(ellipse at 85% -20%, rgba(51, 51, 149, .9), transparent 60%),
+        linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%);
+      color: #fff; padding: 52px 24px 46px;
+    }
+    .hero-inner { max-width: 1040px; margin: 0 auto; }
+    .eyebrow { margin: 0 0 10px; font-size: 14px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gold); }
+    .hero h1 { margin: 0 0 12px; font-family: var(--serif); font-size: clamp(32px, 5.4vw, 52px); line-height: 1.12; font-weight: 700; }
+    .hero .lede { margin: 0; max-width: 760px; font-size: 19px; color: #d7def0; }
+    .hero .meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+    .chip { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: 600; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.25); color: #fff; }
+    .chip.gold { background: var(--gold); border-color: var(--gold); color: #1a1600; }
+
+    /* ---------- layout ---------- */
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+    .jump { display: flex; flex-wrap: wrap; gap: 8px; margin: -22px 0 8px; position: relative; }
+    .jump a { background: #fff; border: 1px solid var(--line); border-radius: 30px; padding: 7px 16px; font-weight: 600; font-size: 15px; text-decoration: none; color: var(--navy); box-shadow: 0 4px 14px rgba(10, 36, 99, .08); }
+    .jump a:hover { border-color: var(--blue); background: var(--blue-soft); }
+    section.block { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 30px 34px; margin: 26px 0; box-shadow: 0 1px 3px rgba(10, 36, 99, .05); }
+    section.block > h2, .block-head h2 { margin: 0 0 14px; font-family: var(--serif); font-size: 28px; line-height: 1.25; color: var(--navy); }
+    section.block > h2::after { content: ""; display: block; width: 52px; height: 4px; background: var(--gold); border-radius: 2px; margin-top: 10px; }
+    h3 { color: var(--navy); font-size: 20px; margin: 24px 0 8px; }
+    p { margin: 0 0 14px; }
+    ul, ol { margin: 0 0 14px; padding-left: 24px; }
+    li { margin: 4px 0; }
+    code { font-family: var(--mono); font-size: .88em; background: #eef1f7; color: #8a1c3c; padding: 1px 5px; border-radius: 4px; }
+    pre { margin: 6px 0 16px; padding: 14px 16px; background: #0d1b3e; color: #e6ebf7; border-radius: 8px; overflow-x: auto; font-size: 14.5px; line-height: 1.55; border-left: 4px solid var(--gold); }
+    pre code { background: none; color: inherit; padding: 0; font-size: inherit; }
+    .muted { color: var(--ink-soft); }
+
+    /* buttons */
+    .btns { display: flex; flex-wrap: wrap; gap: 10px; margin: 6px 0 0; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 8px; font-weight: 700; font-size: 15px; text-decoration: none; border: 2px solid var(--navy); color: var(--navy); background: #fff; }
+    .btn:hover { background: var(--blue-soft); color: var(--navy); }
+    .btn.primary { background: var(--navy); color: #fff; }
+    .btn.primary:hover { background: var(--blue); border-color: var(--blue); color: #fff; }
+    .btn svg { width: 16px; height: 16px; flex: none; }
+
+    /* tags */
+    .tags { list-style: none; padding: 0; margin: 0 0 14px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .tags li { margin: 0; background: var(--blue-soft); color: var(--navy); border-radius: 20px; padding: 3px 12px; font-size: 14.5px; font-weight: 600; }
+
+    /* definition rows */
+    .rows { margin: 0 0 6px; }
+    .rows div { display: grid; grid-template-columns: 210px 1fr; gap: 14px; padding: 9px 0; border-bottom: 1px solid #eef1f6; }
+    .rows div:last-child { border-bottom: 0; }
+    .rows dt { font-weight: 700; color: var(--navy); }
+    .rows dd { margin: 0; }
+
+    /* compare */
+    .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .compare .side { border: 1px solid var(--line); border-radius: 10px; padding: 20px 22px; display: flex; flex-direction: column; }
+    .compare .side.after { border: 2px solid var(--gold-deep); background: var(--gold-soft); }
+    .compare .side h3 { margin-top: 0; }
+    .compare .side p { flex: 1; }
+    .label { display: inline-block; font-size: 13px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 4px; }
+    .after .label { color: #7a6400; }
+
+    /* tests */
+    .tests { display: grid; gap: 14px; }
+    .test { border: 1px solid var(--line); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 16px 20px 6px; }
+    .test h3 { margin: 0 0 8px; font-size: 18px; display: flex; gap: 10px; align-items: baseline; }
+    .test h3 .n { flex: none; display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--navy); color: var(--gold); font-size: 14px; }
+    .expect { background: #e9f6ee; border-radius: 8px; padding: 10px 14px; margin: 4px 0 12px; }
+    .expect b { color: var(--ok); }
+
+    /* artifact cards (home) */
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 26px 0; }
+    .card { background: #fff; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 1px 3px rgba(10, 36, 99, .05); }
+    .card-top { background: linear-gradient(135deg, var(--navy), var(--blue)); color: #fff; padding: 18px 20px; border-bottom: 3px solid var(--gold); }
+    .card-top .label { color: var(--gold); }
+    .card-top h3 { color: #fff; margin: 0; font-family: var(--serif); font-size: 22px; line-height: 1.25; }
+    .card-body { padding: 18px 20px 20px; display: flex; flex-direction: column; flex: 1; }
+    .card-body p { flex: 1; }
+    .card .tags li { font-size: 13.5px; }
+    .card .links { list-style: none; padding: 0; margin: 10px 0 0; border-top: 1px solid #eef1f6; }
+    .card .links li { margin: 0; border-bottom: 1px solid #eef1f6; }
+    .card .links a { display: flex; align-items: center; gap: 8px; padding: 8px 0; font-weight: 600; font-size: 15px; text-decoration: none; }
+    .card .links a:hover { text-decoration: underline; }
+    .card .links svg { width: 15px; height: 15px; flex: none; }
+
+    .video { position: relative; aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden; background: #000; }
+    .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 18px; }
+    .stat { background: var(--page); border-radius: 10px; padding: 14px 16px; }
+    .stat b { display: block; font-family: var(--serif); font-size: 28px; line-height: 1.1; color: var(--navy); }
+    .stat span { font-size: 15px; color: var(--ink-soft); }
+
+    .pager { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin: 26px 0 0; }
+    .pager a { flex: 1 1 260px; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 14px 18px; text-decoration: none; }
+    .pager a:hover { border-color: var(--blue); background: var(--blue-soft); }
+    .pager small { display: block; color: var(--ink-soft); font-size: 14px; }
+    .pager strong { color: var(--navy); }
+    .pager .next { text-align: right; }
+
+    article.essay p { font-family: var(--serif); font-size: 19px; line-height: 1.75; }
+    article.essay p:first-of-type::first-letter { float: left; font-size: 64px; line-height: .9; padding: 6px 10px 0 0; color: var(--navy); font-weight: 700; }
+
+    footer.site { background: var(--navy-deep); color: #c3cce3; margin-top: 46px; padding: 28px 24px; font-size: 15px; border-top: 3px solid var(--gold); }
+    footer.site .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; padding: 0; }
+    footer.site a { color: #fff; margin-right: 16px; }
+    footer.site a:hover { color: var(--gold); }
+
+    /* ---------- easy-read view ---------- */
+    .ev-explain { display: none; }
+    body.easy .ev-explain { display: block; }
+    .ev-explain {
+      background: #eef3ff; border-left: 4px solid var(--blue); border-radius: 0 8px 8px 0;
+      padding: 12px 16px; margin: 0 0 18px; font-family: var(--easy); font-size: 17px; line-height: 1.6; color: var(--ink);
+    }
+    .ev-explain b { color: var(--navy); }
+    .card .ev-explain { font-size: 16px; margin: 0 0 14px; }
+    body.easy { font-family: var(--easy); font-size: 19px; line-height: 1.75; }
+    body.easy .hero h1, body.easy section.block > h2, body.easy .card-top h3, body.easy .stat b,
+    body.easy .block-head h2, body.easy .pager strong { font-family: var(--easy); }
+    body.easy article.essay p { font-family: var(--easy); font-size: 19px; }
+    body.easy article.essay p:first-of-type::first-letter { float: none; font-size: inherit; padding: 0; color: inherit; font-weight: inherit; }
+    body.easy .hero .lede { font-size: 20px; }
+    body.easy .eyebrow { letter-spacing: .4px; }
+    body.easy .tags li, body.easy .chip { font-size: 15.5px; }
+
+    @media (max-width: 900px) {
+      .cards { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 680px) {
+      .topbar { padding: 8px 14px; font-size: 14px; }
+      .topbar .long { display: none; }
+      .view-toggle { font-size: 13px; padding: 7px 10px; }
+      .hero { padding: 36px 16px 40px; }
+      .wrap { padding: 0 14px; }
+      section.block { padding: 22px 18px; }
+      .rows div { grid-template-columns: 1fr; gap: 2px; }
+      .compare { grid-template-columns: 1fr; }
+      .test { padding: 14px 14px 4px; }
+      body.easy { font-size: 18px; }
+      article.essay p { font-size: 18px; }
+    }
+    @media print {
+      .topbar, .jump, footer.site, .pager { display: none; }
+      .hero { background: none; color: #000; padding: 0 0 16px; }
+      .hero .lede, .eyebrow { color: #333; }
+      section.block { box-shadow: none; border: 0; padding: 0; }
+    }
+  </style>
+</head>
+<body>
+<script>
+  // Apply the saved view before the page draws. Shared with the main portfolio,
+  // so a visitor who picked easy-read there sees it here too. ?view=easy forces it.
+  (function () {
+    var v = null;
+    try { v = new URLSearchParams(location.search).get('view'); } catch (e) {}
+    if (v !== 'easy' && v !== 'tech') { try { v = localStorage.getItem('portfolio-view'); } catch (e) {} }
+    if (v === 'easy') document.body.classList.add('easy');
+  })();
+</script>
+<div class="topbar">
+  <nav aria-label="Site"><a href="https://emilagui01.github.io/">&larr; <span class="long">Emil Aguirre Herrera &middot; </span>Portfolio</a><a href="./" class="here">Capstone<span class="long"> home</span></a></nav>
+  <button class="view-toggle" id="viewToggle" type="button">
+    <span class="aa" aria-hidden="true">Aa</span>
+    <span class="to-easy">Easy-read view</span>
+    <span class="to-std">Switch to standard view</span>
+  </button>
+</div>
+<header class="hero"><div class="hero-inner">
+  <p class="eyebrow">Southern New Hampshire University &middot; CS-499 Computer Science Capstone</p>
+  <h1>Capstone ePortfolio</h1>
+  <p class="lede">My final project for the B.S. in Computer Science at SNHU. I enhanced three artifacts from earlier courses, covering software engineering and design, algorithms and data structures, and databases, and documented every change with narratives, a recorded code review and tested procedures.</p>
+  <div class="meta"><span class="chip gold">B.S. Computer Science</span><span class="chip">Graduated June 2026</span><span class="chip">GPA 3.94</span><span class="chip">President's List</span></div>
+</div></header><main class="wrap"><nav class="jump" aria-label="On this page"><a href="#artifacts">Artifacts</a><a href="#code-review">Code review</a><a href="#self-assessment">Self-assessment</a></nav>
+<section class="block" id="about">
+  <h2>About this ePortfolio</h2>
+  <div class="ev-explain"><b>In plain English:</b> A capstone is the final project of a degree. For mine, I took three projects I had built in earlier classes, improved them, and documented the changes the way a developer would at work.</div>
+  <p>This ePortfolio brings my coursework together into one professional collection. Each artifact started as a
+    working project from an earlier course. For the capstone, I evaluated it, planned improvements, carried them
+    out, tested them, and wrote a narrative explaining what changed and why.</p>
+  <div class="stats">
+    <div class="stat"><b>3</b><span>enhanced artifacts</span></div>
+    <div class="stat"><b>3</b><span>skill categories</span></div>
+    <div class="stat"><b>30</b><span>documented tests</span></div>
+    <div class="stat"><b>1</b><span>recorded code review</span></div>
+  </div>
+</section>
+
+<h2 id="artifacts" class="sr-only" style="position:absolute;left:-9999px">Artifacts</h2>
+<div class="cards">
+  <article class="card">
+    <div class="card-top"><span class="label">Software engineering and design</span><h3>Travlr Full Stack Application</h3></div>
+    <div class="card-body">
+      <div class="ev-explain"><b>In plain English:</b> Travlr is a travel booking website with an admin side for managing trips. I made it safer and easier to use: pages that need a login are protected, forms catch mistakes before saving, errors are explained clearly, and trips can be deleted.</div>
+      <ul class="tags"><li>Angular</li><li>Node.js</li><li>Express</li><li>MongoDB</li></ul>
+      <p>Enhanced with an Angular route guard for protected admin pages, an improved login flow, stronger Add Trip
+        and Edit Trip validation, clearer error handling, Delete Trip functionality and reusable components.</p>
+      <div class="btns"><a class="btn primary" href="software-design.html">View artifact <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+      <ul class="links">
+        <li><a href="Original%20Travlr.zip"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5v9M4 7l4 4 4-4M2.5 14h11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Original code</a></li>
+        <li><a href="Enhanced%20Travlr.zip"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5v9M4 7l4 4 4-4M2.5 14h11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Enhanced code</a></li>
+        <li><a href="software-design.html#narrative"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Read the narrative</a></li>
+      </ul>
+    </div>
+  </article>
+  <article class="card">
+    <div class="card-top"><span class="label">Algorithms and data structures</span><h3>CS-300 Course Planner</h3></div>
+    <div class="card-body">
+      <div class="ev-explain"><b>In plain English:</b> A program that helps students look up college courses and their prerequisites. I made searching much faster by changing how the courses are stored, and made the program handle bad data and typos safely.</div>
+      <ul class="tags"><li>C++</li><li>Hash tables</li><li>Sorting</li><li>Validation</li></ul>
+      <p>Enhanced with an <code>unordered_map</code> hash table for faster lookup while keeping the vector for sorted
+        output, plus CSV row validation, duplicate detection, case-insensitive search and safer menu input.</p>
+      <div class="btns"><a class="btn primary" href="algorithms.html">View artifact <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+      <ul class="links">
+        <li><a href="Original%20CoursePlanner.zip"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5v9M4 7l4 4 4-4M2.5 14h11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Original code</a></li>
+        <li><a href="Enhanced%20CoursePlanner.zip"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5v9M4 7l4 4 4-4M2.5 14h11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Enhanced code</a></li>
+        <li><a href="algorithms.html#narrative"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Read the narrative</a></li>
+      </ul>
+    </div>
+  </article>
+  <article class="card">
+    <div class="card-top"><span class="label">Databases</span><h3>Travlr Database Layer</h3></div>
+    <div class="card-body">
+      <div class="ev-explain"><b>In plain English:</b> The same Travlr website, this time focused on where its information is stored. I added checks so bad or duplicate data can't be saved, and made sure only logged-in users can change anything.</div>
+      <ul class="tags"><li>MongoDB</li><li>Mongoose</li><li>JWT</li><li>Postman</li></ul>
+      <p>Enhanced with stronger Mongoose validation, corrected field types, clearer backend error handling,
+        protected database operations, user validation and safer CRUD functionality.</p>
+      <div class="btns"><a class="btn primary" href="databases.html">View artifact <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+      <ul class="links">
+        <li><a href="Original%20Travlr.zip"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5v9M4 7l4 4 4-4M2.5 14h11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Original code</a></li>
+        <li><a href="Enhanced%20Travlr.zip"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5v9M4 7l4 4 4-4M2.5 14h11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Enhanced code</a></li>
+        <li><a href="databases.html#narrative"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Read the narrative</a></li>
+      </ul>
+    </div>
+  </article>
+</div>
+
+<section class="block" id="code-review">
+  <h2>Code review video</h2>
+  <div class="ev-explain"><b>In plain English:</b> A recorded walkthrough where I review my original code, point out its weaknesses, and explain how I planned to improve it. Code reviews like this are a normal part of software jobs.</div>
+  <p>In this video I walk through the original versions of all three artifacts, identify areas for improvement
+    and explain the enhancements I planned for each category.</p>
+  <div class="video"><iframe src="https://www.youtube.com/embed/G51EN9xr1B4" title="CS-499 Code Review Video" loading="lazy" allowfullscreen></iframe></div>
+</section>
+
+<section class="block" id="self-assessment">
+  <h2>Professional self-assessment</h2>
+  <div class="ev-explain"><b>In plain English:</b> A written reflection on what I learned during my degree and how the projects in this portfolio show those skills.</div>
+  <p>My professional self-assessment covers my growth throughout the Computer Science program, my career goals and
+    how these artifacts demonstrate skills in software design, algorithms and data structures, databases, testing,
+    communication and secure coding practices.</p>
+  <div class="btns"><a class="btn primary" href="self-assessment.html">Read the self-assessment <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+</section>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <span>Emil Aguirre Herrera &middot; B.S. Computer Science, Southern New Hampshire University</span>
+    <span><a href="https://emilagui01.github.io/">Portfolio</a><a href="https://www.linkedin.com/in/emilagui01">LinkedIn</a><a href="https://github.com/emilagui01">GitHub</a><a href="mailto:emilagui01@gmail.com">Email</a></span>
+  </div>
+</footer>
+<script>
+  (function () {
+    document.getElementById('viewToggle').addEventListener('click', function () {
+      var easy = document.body.classList.toggle('easy');
+      try { localStorage.setItem('portfolio-view', easy ? 'easy' : 'tech'); } catch (e) {}
+    });
+  })();
+</script>
+</body>
+</html>

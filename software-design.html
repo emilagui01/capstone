@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Software Engineering and Design | Capstone ePortfolio</title>
+  <meta name="description" content="Travlr full stack application, enhanced for the software engineering and design category of the CS-499 capstone.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Source+Sans+3:wght@400;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0a2463;
+      --navy-deep: #061a4a;
+      --blue: #333395;
+      --blue-soft: #e8ecfa;
+      --gold: #f0d52d;
+      --gold-deep: #c9a800;
+      --gold-soft: #fff8d6;
+      --ink: #1d2433;
+      --ink-soft: #4a5468;
+      --line: #dde2ec;
+      --page: #f3f5f9;
+      --card: #ffffff;
+      --ok: #1e7a3c;
+      --sans: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+      --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+      --mono: Consolas, "Cascadia Mono", Menlo, monospace;
+      --easy: "Atkinson Hyperlegible", "Segoe UI", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    body { margin: 0; background: var(--page); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.65; }
+    a { color: var(--blue); }
+    a:hover { color: var(--navy); }
+    img, iframe { max-width: 100%; }
+
+    /* ---------- top bar ---------- */
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 10px 24px; background: var(--navy-deep); border-bottom: 3px solid var(--gold);
+      font-size: 15px;
+    }
+    .topbar nav { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 18px; }
+    .topbar a { color: #dfe6f7; text-decoration: none; font-weight: 600; }
+    .topbar a:hover { color: var(--gold); }
+    .topbar .here { color: var(--gold); }
+    .view-toggle {
+      font-family: var(--easy); font-size: 14px; font-weight: 700; line-height: 1.2;
+      padding: 8px 14px; border-radius: 6px; cursor: pointer; white-space: nowrap;
+      border: 2px solid var(--gold); background: var(--gold); color: #1a1600;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .view-toggle:hover { background: #f6e270; }
+    .view-toggle:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+    .view-toggle .aa { font-size: 15px; background: #1a1600; color: var(--gold); border-radius: 4px; padding: 1px 5px; }
+    .view-toggle .to-std { display: none; }
+    body.easy .view-toggle .to-easy { display: none; }
+    body.easy .view-toggle .to-std { display: inline; }
+
+    /* ---------- hero ---------- */
+    .hero {
+      background:
+        radial-gradient(ellipse at 85% -20%, rgba(51, 51, 149, .9), transparent 60%),
+        linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%);
+      color: #fff; padding: 52px 24px 46px;
+    }
+    .hero-inner { max-width: 1040px; margin: 0 auto; }
+    .eyebrow { margin: 0 0 10px; font-size: 14px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gold); }
+    .hero h1 { margin: 0 0 12px; font-family: var(--serif); font-size: clamp(32px, 5.4vw, 52px); line-height: 1.12; font-weight: 700; }
+    .hero .lede { margin: 0; max-width: 760px; font-size: 19px; color: #d7def0; }
+    .hero .meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+    .chip { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: 600; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.25); color: #fff; }
+    .chip.gold { background: var(--gold); border-color: var(--gold); color: #1a1600; }
+
+    /* ---------- layout ---------- */
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+    .jump { display: flex; flex-wrap: wrap; gap: 8px; margin: -22px 0 8px; position: relative; }
+    .jump a { background: #fff; border: 1px solid var(--line); border-radius: 30px; padding: 7px 16px; font-weight: 600; font-size: 15px; text-decoration: none; color: var(--navy); box-shadow: 0 4px 14px rgba(10, 36, 99, .08); }
+    .jump a:hover { border-color: var(--blue); background: var(--blue-soft); }
+    section.block { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 30px 34px; margin: 26px 0; box-shadow: 0 1px 3px rgba(10, 36, 99, .05); }
+    section.block > h2, .block-head h2 { margin: 0 0 14px; font-family: var(--serif); font-size: 28px; line-height: 1.25; color: var(--navy); }
+    section.block > h2::after { content: ""; display: block; width: 52px; height: 4px; background: var(--gold); border-radius: 2px; margin-top: 10px; }
+    h3 { color: var(--navy); font-size: 20px; margin: 24px 0 8px; }
+    p { margin: 0 0 14px; }
+    ul, ol { margin: 0 0 14px; padding-left: 24px; }
+    li { margin: 4px 0; }
+    code { font-family: var(--mono); font-size: .88em; background: #eef1f7; color: #8a1c3c; padding: 1px 5px; border-radius: 4px; }
+    pre { margin: 6px 0 16px; padding: 14px 16px; background: #0d1b3e; color: #e6ebf7; border-radius: 8px; overflow-x: auto; font-size: 14.5px; line-height: 1.55; border-left: 4px solid var(--gold); }
+    pre code { background: none; color: inherit; padding: 0; font-size: inherit; }
+    .muted { color: var(--ink-soft); }
+
+    /* buttons */
+    .btns { display: flex; flex-wrap: wrap; gap: 10px; margin: 6px 0 0; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 8px; font-weight: 700; font-size: 15px; text-decoration: none; border: 2px solid var(--navy); color: var(--navy); background: #fff; }
+    .btn:hover { background: var(--blue-soft); color: var(--navy); }
+    .btn.primary { background: var(--navy); color: #fff; }
+    .btn.primary:hover { background: var(--blue); border-color: var(--blue); color: #fff; }
+    .btn svg { width: 16px; height: 16px; flex: none; }
+
+    /* tags */
+    .tags { list-style: none; padding: 0; margin: 0 0 14px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .tags li { margin: 0; background: var(--blue-soft); color: var(--navy); border-radius: 20px; padding: 3px 12px; font-size: 14.5px; font-weight: 600; }
+
+    /* definition rows */
+    .rows { margin: 0 0 6px; }
+    .rows div { display: grid; grid-template-columns: 210px 1fr; gap: 14px; padding: 9px 0; border-bottom: 1px solid #eef1f6; }
+    .rows div:last-child { border-bottom: 0; }
+    .rows dt { font-weight: 700; color: var(--navy); }
+    .rows dd { margin: 0; }
+
+    /* compare */
+    .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .compare .side { border: 1px solid var(--line); border-radius: 10px; padding: 20px 22px; display: flex; flex-direction: column; }
+    .compare .side.after { border: 2px solid var(--gold-deep); background: var(--gold-soft); }
+    .compare .side h3 { margin-top: 0; }
+    .compare .side p { flex: 1; }
+    .label { display: inline-block; font-size: 13px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 4px; }
+    .after .label { color: #7a6400; }
+
+    /* tests */
+    .tests { display: grid; gap: 14px; }
+    .test { border: 1px solid var(--line); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 16px 20px 6px; }
+    .test h3 { margin: 0 0 8px; font-size: 18px; display: flex; gap: 10px; align-items: baseline; }
+    .test h3 .n { flex: none; display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--navy); color: var(--gold); font-size: 14px; }
+    .expect { background: #e9f6ee; border-radius: 8px; padding: 10px 14px; margin: 4px 0 12px; }
+    .expect b { color: var(--ok); }
+
+    /* artifact cards (home) */
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 26px 0; }
+    .card { background: #fff; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 1px 3px rgba(10, 36, 99, .05); }
+    .card-top { background: linear-gradient(135deg, var(--navy), var(--blue)); color: #fff; padding: 18px 20px; border-bottom: 3px solid var(--gold); }
+    .card-top .label { color: var(--gold); }
+    .card-top h3 { color: #fff; margin: 0; font-family: var(--serif); font-size: 22px; line-height: 1.25; }
+    .card-body { padding: 18px 20px 20px; display: flex; flex-direction: column; flex: 1; }
+    .card-body p { flex: 1; }
+    .card .tags li { font-size: 13.5px; }
+    .card .links { list-style: none; padding: 0; margin: 10px 0 0; border-top: 1px solid #eef1f6; }
+    .card .links li { margin: 0; border-bottom: 1px solid #eef1f6; }
+    .card .links a { display: flex; align-items: center; gap: 8px; padding: 8px 0; font-weight: 600; font-size: 15px; text-decoration: none; }
+    .card .links a:hover { text-decoration: underline; }
+    .card .links svg { width: 15px; height: 15px; flex: none; }
+
+    .video { position: relative; aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden; background: #000; }
+    .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 18px; }
+    .stat { background: var(--page); border-radius: 10px; padding: 14px 16px; }
+    .stat b { display: block; font-family: var(--serif); font-size: 28px; line-height: 1.1; color: var(--navy); }
+    .stat span { font-size: 15px; color: var(--ink-soft); }
+
+    .pager { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin: 26px 0 0; }
+    .pager a { flex: 1 1 260px; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 14px 18px; text-decoration: none; }
+    .pager a:hover { border-color: var(--blue); background: var(--blue-soft); }
+    .pager small { display: block; color: var(--ink-soft); font-size: 14px; }
+    .pager strong { color: var(--navy); }
+    .pager .next { text-align: right; }
+
+    article.essay p { font-family: var(--serif); font-size: 19px; line-height: 1.75; }
+    article.essay p:first-of-type::first-letter { float: left; font-size: 64px; line-height: .9; padding: 6px 10px 0 0; color: var(--navy); font-weight: 700; }
+
+    footer.site { background: var(--navy-deep); color: #c3cce3; margin-top: 46px; padding: 28px 24px; font-size: 15px; border-top: 3px solid var(--gold); }
+    footer.site .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; padding: 0; }
+    footer.site a { color: #fff; margin-right: 16px; }
+    footer.site a:hover { color: var(--gold); }
+
+    /* ---------- easy-read view ---------- */
+    .ev-explain { display: none; }
+    body.easy .ev-explain { display: block; }
+    .ev-explain {
+      background: #eef3ff; border-left: 4px solid var(--blue); border-radius: 0 8px 8px 0;
+      padding: 12px 16px; margin: 0 0 18px; font-family: var(--easy); font-size: 17px; line-height: 1.6; color: var(--ink);
+    }
+    .ev-explain b { color: var(--navy); }
+    .card .ev-explain { font-size: 16px; margin: 0 0 14px; }
+    body.easy { font-family: var(--easy); font-size: 19px; line-height: 1.75; }
+    body.easy .hero h1, body.easy section.block > h2, body.easy .card-top h3, body.easy .stat b,
+    body.easy .block-head h2, body.easy .pager strong { font-family: var(--easy); }
+    body.easy article.essay p { font-family: var(--easy); font-size: 19px; }
+    body.easy article.essay p:first-of-type::first-letter { float: none; font-size: inherit; padding: 0; color: inherit; font-weight: inherit; }
+    body.easy .hero .lede { font-size: 20px; }
+    body.easy .eyebrow { letter-spacing: .4px; }
+    body.easy .tags li, body.easy .chip { font-size: 15.5px; }
+
+    @media (max-width: 900px) {
+      .cards { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 680px) {
+      .topbar { padding: 8px 14px; font-size: 14px; }
+      .topbar .long { display: none; }
+      .view-toggle { font-size: 13px; padding: 7px 10px; }
+      .hero { padding: 36px 16px 40px; }
+      .wrap { padding: 0 14px; }
+      section.block { padding: 22px 18px; }
+      .rows div { grid-template-columns: 1fr; gap: 2px; }
+      .compare { grid-template-columns: 1fr; }
+      .test { padding: 14px 14px 4px; }
+      body.easy { font-size: 18px; }
+      article.essay p { font-size: 18px; }
+    }
+    @media print {
+      .topbar, .jump, footer.site, .pager { display: none; }
+      .hero { background: none; color: #000; padding: 0 0 16px; }
+      .hero .lede, .eyebrow { color: #333; }
+      section.block { box-shadow: none; border: 0; padding: 0; }
+    }
+  </style>
+</head>
+<body>
+<script>
+  // Apply the saved view before the page draws. Shared with the main portfolio,
+  // so a visitor who picked easy-read there sees it here too. ?view=easy forces it.
+  (function () {
+    var v = null;
+    try { v = new URLSearchParams(location.search).get('view'); } catch (e) {}
+    if (v !== 'easy' && v !== 'tech') { try { v = localStorage.getItem('portfolio-view'); } catch (e) {} }
+    if (v === 'easy') document.body.classList.add('easy');
+  })();
+</script>
+<div class="topbar">
+  <nav aria-label="Site"><a href="https://emilagui01.github.io/">&larr; <span class="long">Emil Aguirre Herrera &middot; </span>Portfolio</a><a href="./">Capstone<span class="long"> home</span></a></nav>
+  <button class="view-toggle" id="viewToggle" type="button">
+    <span class="aa" aria-hidden="true">Aa</span>
+    <span class="to-easy">Easy-read view</span>
+    <span class="to-std">Switch to standard view</span>
+  </button>
+</div>
+<header class="hero"><div class="hero-inner">
+  <p class="eyebrow">CS-499 Capstone &middot; Software engineering and design</p>
+  <h1>Travlr Full Stack Application</h1>
+  <p class="lede">A travel booking web application built on the MEAN stack, enhanced to improve its design, maintainability, usability and security.</p>
+  <div class="meta"><span class="chip gold">Software engineering and design</span><span class="chip">Angular</span><span class="chip">Node.js</span><span class="chip">Express</span><span class="chip">MongoDB</span></div>
+</div></header><main class="wrap"><nav class="jump" aria-label="On this page"><a href="#overview">Overview</a><a href="#enhancement">Enhancement</a><a href="#narrative">Narrative</a><a href="#downloads">Downloads</a><a href="#running">Running it</a><a href="#testing">Testing</a></nav>
+<section class="block" id="overview">
+  <h2>Overview</h2>
+  <div class="ev-explain"><b>In plain English:</b> Travlr is a travel booking website. Staff log in to an admin area to add, edit and remove trips. I built it in an earlier class and improved it for my capstone. MEAN stands for the four tools it's built with: MongoDB stores the data, Express and Node.js run the server, and Angular is the part people see and click.</div>
+  <p>Travlr is a full-stack travel booking web application developed using the MEAN stack: MongoDB, Express, Angular
+    and Node.js. The application includes an Angular administrative interface, a Node.js and Express backend API,
+    MongoDB database integration and JWT-based authentication for protected routes.</p>
+  <p>This artifact was originally developed in CS-465 Full Stack Development I and is used for the Software
+    Engineering and Design category of the CS-499 Computer Science Capstone.</p>
+  <h3>Features</h3>
+  <ul class="tags"><li>Angular single-page application</li><li>RESTful API architecture</li><li>MongoDB with Mongoose</li>
+    <li>JWT authentication and authorization</li><li>Protected API routes</li><li>CRUD trip management</li>
+    <li>Reusable Angular components and services</li></ul>
+  <h3>Project structure</h3>
+  <dl class="rows"><div><dt>app_admin/</dt><dd>Angular administrative frontend</dd></div><div><dt>app_api/</dt><dd>API controllers, models, authentication and routes</dd></div><div><dt>app_server/</dt><dd>Express server-side components</dd></div><div><dt>public/</dt><dd>Static assets</dd></div><div><dt>data/</dt><dd>Seed and supporting application data</dd></div></dl>
+</section>
+
+<section class="block" id="enhancement">
+  <h2>Enhancement completed</h2>
+  <div class="ev-explain"><b>In plain English:</b> In short: admin pages now require a login, logging in works more smoothly, forms catch mistakes before anything is saved, errors show clear messages, a trip's code can't be changed by accident, and trips can be deleted after a confirmation.</div>
+  <p>The enhancement improved the design, maintainability, usability and security of the Travlr administrator
+    application.</p>
+  <ul>
+    <li>An Angular route guard that protects admin pages from logged-out users</li>
+    <li>An improved login flow</li>
+    <li>Stronger Add Trip and Edit Trip form validation</li>
+    <li>Clearer user-facing error messages</li>
+    <li>A read-only trip code field during edits</li>
+    <li>Delete Trip functionality with a confirmation step</li>
+    <li>Reusable service updates</li>
+    <li>Comments explaining important TypeScript logic</li>
+  </ul>
+</section>
+
+<section class="block" id="narrative">
+  <h2>Enhancement narrative</h2>
+  <div class="ev-explain"><b>In plain English:</b> My written explanation, as submitted for the course, of why I chose this project, what I changed, which course outcomes it meets, and what I learned along the way.</div>
+  <p class="muted"><strong>Milestone Two: Enhancement One</strong> &middot; CS-499 &middot; May 23, 2026</p>
+  <article class="essay"><p>The artifact I selected for the Software Design and Engineering category is the Travlr Getaways full-stack web application. This project was created during my previous term in CS-465 Full Stack Development I, around March and April of 2026. Travlr is a travel management web application built using the MEAN stack, which includes MongoDB, Express.js, Angular, and Node.js. The application includes a customer-facing travel site and an administrator single-page application that allows authenticated users to manage trip records. The original version of the project supported viewing trips, logging in, adding trips, and editing existing trip information through RESTful API communication between the Angular frontend and Express backend.</p><p>I selected this artifact for my ePortfolio because it demonstrates several important software design and development skills. It shows my ability to work with a full-stack architecture, create reusable Angular components, connect a frontend application to backend REST API routes, use services for API communication, and apply authentication using JSON Web Tokens. This artifact also represents one of the more complete applications I developed in the Computer Science program because it includes frontend design, backend routing, database integration, authentication, and administrative functionality. These features make it a strong artifact for showing my growth in software engineering and design. For the enhancement, I improved the Travlr administrator application in several specific ways. I added an Angular authentication route guard to protect the Add Trip and Edit Trip pages, so users who are not logged in are redirected to the login page instead of being able to access those routes directly. I also updated the login process so it waits for the actual authentication response and saves the JWT token only after a successful login, instead of relying on a timed delay. To improve usability, I added user-facing error messages for failed login, add trip, and edit trip actions. I strengthened the Add Trip and Edit Trip forms by adding validation rules for minimum field lengths, required dates, valid price formatting, valid image file extensions, and longer descriptions. I also made the trip code field read-only on the Edit Trip page so users do not accidentally change the identifier used to update the trip. In addition, I added Delete Trip functionality by creating a protected backend DELETE route, adding a delete method to the Angular trip data service, and adding a Delete Trip button with confirmation to the trip card component. Finally, I added short comments to the enhanced TypeScript files to explain important logic such as route protection, form validation, login handling, editing trips, deleting trips, and submitting new trip records. These changes made the application more secure, more reliable, easier to use, better documented, and more complete because the administrator side now supports full CRUD functionality: creating, reading, updating, and deleting trip records.</p><p>This enhancement helped me meet the course outcomes I originally planned for this category. It supports Course Outcome 2 because I had to explain my enhancement decisions clearly through the code review and this narrative. It supports Course Outcome 3 because I evaluated the original application design, identified weaknesses, and made design decisions that improved the structure and usability of the application. It supports Course Outcome 4 because I used modern computing tools and practices, including Angular routing, Angular services, Express routes, JWT authentication, RESTful API design, and reusable components, to improve the application. It also supports Course Outcome 5 because several of the improvements strengthened the application’s security mindset. For example, the original application hid the Add Trip and Edit Trip buttons when a user was not logged in, but the routes themselves were still accessible if typed directly into the browser. Adding an Angular route guard improved the design by redirecting unauthenticated users to the login page before they could access protected administrative screens.</p><p>While enhancing and modifying the artifact, I learned more about how frontend security, validation, backend route protection, and CRUD functionality work together in a full-stack application. One challenge I faced was understanding that hiding buttons in the interface was not the same as protecting the route itself. After testing the application, I saw why route guards are important for a more complete authentication flow. Another challenge was improving the Add Trip and Edit Trip validation so the forms did not accept unrealistic values such as very short text, invalid prices, or image names without proper file extensions. I also had to troubleshoot why validation messages were not appearing at first, which helped me better understand Angular’s form validation behavior and the need to restart the Angular development server after certain changes. Adding Delete Trip functionality was another useful challenge because it required updates across the full stack, including the Express controller, API route, Angular service, and trip card component. I also improved my commenting style by adding short comments that explain the purpose of important methods without repeating what the code already says. Overall, this enhancement helped me improve the Travlr application from a basic working project into a more polished and secure software artifact that better demonstrates my skills in software design and engineering.</p></article>
+  <div class="btns"><a class="btn" href="CS499%20Milestone%20Two.docx"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5v9M4 7l4 4 4-4M2.5 14h11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Download as a Word file</a></div>
+</section>
+
+<section class="block" id="downloads">
+  <h2>Original and enhanced versions</h2>
+  <div class="ev-explain"><b>In plain English:</b> Both versions of the code can be downloaded, so you can compare the project before and after my changes. The narrative is my written explanation of what I changed and why.</div>
+  <div class="compare">
+    <div class="side"><span class="label">Before</span><h3>Original artifact</h3><p>The Travlr application before the software engineering and design enhancement.</p>
+      <div class="btns"><a class="btn" href="Original%20Travlr.zip"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5v9M4 7l4 4 4-4M2.5 14h11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Download original</a></div></div>
+    <div class="side after"><span class="label">After</span><h3>Enhanced artifact</h3><p>The Travlr application after the enhancement, with improved route protection, login behavior, form validation, user-facing error handling, reusable Angular services and full CRUD functionality for managing trips.</p>
+      <div class="btns"><a class="btn primary" href="Enhanced%20Travlr.zip"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5v9M4 7l4 4 4-4M2.5 14h11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Download enhanced</a></div></div>
+  </div>
+  <div class="btns" style="margin-top:16px"><a class="btn" href="CS499%20Milestone%20Two.docx"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5v9M4 7l4 4 4-4M2.5 14h11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Download the software design narrative as a Word file</a></div>
+</section>
+
+<section class="block" id="running">
+  <h2>Running the project</h2>
+  <div class="ev-explain"><b>In plain English:</b> Instructions for a developer who wants to run the project on their own computer.</div>
+  <p>This artifact can be tested through the Travlr administrator web application. Postman is not required for these
+    tests because they focus on the user interface, route protection, form validation, login flow and admin CRUD features.</p>
+  <h3>Applications and tools needed</h3>
+  <dl class="rows"><div><dt>Visual Studio Code</dt><dd>Used to open and review the project files.</dd></div><div><dt>Node.js and npm</dt><dd>Used to install dependencies and run the backend server.</dd></div><div><dt>Angular CLI</dt><dd>Used to run the Angular administrator application.</dd></div><div><dt>Web browser</dt><dd>Used to test the Travlr admin interface at <code>http://localhost:4200</code>.</dd></div></dl>
+  <p>Generated dependency folders such as <strong>node_modules</strong> were removed to reduce file size, so
+    dependencies must be reinstalled before running the project.</p>
+  <ol>
+    <li>Install backend dependencies from the main Travlr project folder:<pre><code>npm install</code></pre></li>
+    <li>Install Angular dependencies:<pre><code>cd app_admin
+npm install</code></pre></li>
+    <li>Start the backend application from the main Travlr project folder:<pre><code>npm start</code></pre></li>
+    <li>Start the Angular development server in a separate terminal:<pre><code>cd app_admin
+ng serve</code></pre></li>
+    <li>Open the admin application in a browser:<pre><code>http://localhost:4200</code></pre></li>
+  </ol>
+</section>
+
+<section class="block" id="testing">
+  <h2>Testing and validation</h2>
+  <div class="ev-explain"><b>In plain English:</b> The tests I ran to prove each improvement works. Each one lists the steps and the result that should happen.</div>
+  <p>These tests confirm that route protection, login flow, validation, CRUD functionality and user-facing error
+    handling work correctly.</p>
+  <div class="tests">
+  <div class="test"><h3><span class="n">1</span>Route guard protection</h3>
+<ol><li>Start the backend server with <code>npm start</code>.</li><li>Start the Angular admin application with <code>cd app_admin</code> and <code>ng serve</code>.</li><li>Open the application at <code>http://localhost:4200</code>.</li><li>Make sure the user is logged out.</li><li>Type <code>http://localhost:4200/add-trip</code> into the browser.</li><li>Confirm that the application redirects to the login page.</li><li>Repeat the test with <code>http://localhost:4200/edit-trip</code>.</li></ol>
+<p class="expect"><b>Expected result:</b> Logged-out users should not be able to reach protected admin routes directly.</p></div>
+  <div class="test"><h3><span class="n">2</span>Login flow</h3>
+<ol><li>Navigate to the Login page.</li><li>Enter valid login credentials.</li><li>Submit the form.</li><li>Confirm that the JWT token is saved and the user is redirected to the trip listing page.</li><li>Log out and try logging in with invalid credentials.</li></ol>
+<p class="expect"><b>Expected result:</b> A valid login redirects to the trip listing page. An invalid login displays a user-facing error message.</p></div>
+  <div class="test"><h3><span class="n">3</span>Add Trip validation</h3>
+<ol><li>Log in as an authenticated user.</li><li>Go to the Add Trip page.</li><li>Enter invalid values: <code>ab</code> for Code, <code>hi</code> for Name, <code>x</code> for Length, a blank Start Date, <code>aa</code> for Resort, <code>abc</code> for Per Person, <code>reef1</code> for Image Name and <code>short</code> for Description.</li><li>Click Save.</li></ol>
+<p class="expect"><b>Expected result:</b> The form displays validation messages and prevents invalid trip data from being submitted.</p></div>
+  <div class="test"><h3><span class="n">4</span>Add Trip valid submission</h3>
+<ol><li>Go to the Add Trip page.</li><li>Enter valid trip data: Code <code>TEST2026</code>, Name <code>Test Trip</code>, Length <code>4 nights</code>, Start <code>2026-05-07</code>, Resort <code>Test Resort</code>, Per Person <code>799.99</code>, Image Name <code>reef1.jpg</code>, Description <code>This is a test trip description.</code></li><li>Click Save.</li><li>Confirm that the trip appears in the trip listing.</li></ol>
+<p class="expect"><b>Expected result:</b> Valid trip data saves successfully and appears on the trip listing page.</p></div>
+  <div class="test"><h3><span class="n">5</span>Edit Trip</h3>
+<ol><li>Log in as an authenticated user.</li><li>Click Edit Trip on an existing trip.</li><li>Confirm that the Code field is read-only.</li><li>Update fields such as Name, Length, Resort, Price, Image or Description.</li><li>Click Save.</li><li>Confirm that the trip updates on the trip listing page.</li></ol>
+<p class="expect"><b>Expected result:</b> The trip updates successfully, and the trip code cannot be changed by accident.</p></div>
+  <div class="test"><h3><span class="n">6</span>Delete Trip</h3>
+<ol><li>Log in as an authenticated user.</li><li>Create a test trip or choose an existing test trip.</li><li>Click Delete Trip.</li><li>Confirm the browser confirmation popup appears.</li><li>Click OK.</li><li>Confirm the trip is removed from the trip listing.</li></ol>
+<p class="expect"><b>Expected result:</b> The selected trip is deleted only after confirmation.</p></div>
+  <div class="test"><h3><span class="n">7</span>Error handling</h3>
+<ol><li>Stop the backend server while the Angular frontend is still running.</li><li>Try to add or edit a trip.</li><li>Observe the error message shown in the interface.</li></ol>
+<p class="expect"><b>Expected result:</b> The application displays a clear error message instead of only logging the error in the browser console.</p></div>
+  </div>
+</section>
+<nav class="pager" aria-label="More artifacts"><a class="next" href="algorithms.html"><small>Next &rarr;</small><strong>Algorithms and data structures: CS-300 Course Planner</strong></a></nav>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <span>Emil Aguirre Herrera &middot; B.S. Computer Science, Southern New Hampshire University</span>
+    <span><a href="https://emilagui01.github.io/">Portfolio</a><a href="https://www.linkedin.com/in/emilagui01">LinkedIn</a><a href="https://github.com/emilagui01">GitHub</a><a href="mailto:emilagui01@gmail.com">Email</a></span>
+  </div>
+</footer>
+<script>
+  (function () {
+    document.getElementById('viewToggle').addEventListener('click', function () {
+      var easy = document.body.classList.toggle('easy');
+      try { localStorage.setItem('portfolio-view', easy ? 'easy' : 'tech'); } catch (e) {}
+    });
+  })();
+</script>
+</body>
+</html>
